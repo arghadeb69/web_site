@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nokshilatha Art - MATIR RUP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../nav-styles.css">
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa url('../images/Nokshilatha.jpg') no-repeat center/contain;
+            border-radius: 8px;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-title {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .product-price {
+            font-size: 1.8rem;
+            color: #8B4513;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        .product-description {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .product-features {
+            margin: 1.5rem 0;
+            padding: 0;
+            list-style: none;
+        }
+        .product-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        .product-features li:before {
+            content: '✓';
+            color: #8B4513;
+            position: absolute;
+            left: 0;
+        }
+        .add-to-cart-btn {
+            background-color: #2C327B;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2C327B;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            .product-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-screen">
+        <header class="header">
+            <div class="brand">
+                <a href="../index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Shop
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="../cart.html" class="cart-btn" id="cartBtn" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="product-detail-container">
+                <div class="product-detail">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h1 class="product-title">Nokshilatha Art</h1>
+                        <div class="product-price">₹2,199</div>
+                        <p class="product-description">
+                            Exquisite Nokshilatha art piece, a traditional Indian craft that showcases intricate 
+                            patterns and designs. Handmade with precision and care, this art form represents 
+                            the rich cultural heritage of India.
+                        </p>
+                        
+                        <div class="product-features">
+                            <h3>Features:</h3>
+                            <ul>
+                                <li>Handcrafted with traditional techniques</li>
+                                <li>Intricate and detailed designs</li>
+                                <li>Made with natural and sustainable materials</li>
+                                <li>Perfect for home or office decoration</li>
+                                <li>Dimensions: 16" x 20" (framed)</li>
+                            </ul>
+                        </div>
+
+                        <div class="product-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" aria-label="Quantity">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" id="addToCartBtn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Cart functionality
+        function updateCartDisplay(count) {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = count;
+                localStorage.setItem('cartCount', count);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            const minusBtn = document.querySelector('.quantity-btn.minus');
+            const plusBtn = document.querySelector('.quantity-btn.plus');
+            const quantityInput = document.querySelector('.quantity-input');
+
+            // Initialize cart count
+            const initialCount = parseInt(localStorage.getItem('cartCount') || '0');
+            updateCartDisplay(initialCount);
+
+            // Add to cart functionality
+            addToCartBtn.addEventListener('click', () => {
+                const quantity = parseInt(quantityInput.value) || 1;
+                const currentCount = parseInt(localStorage.getItem('cartCount') || '0');
+                updateCartDisplay(currentCount + quantity);
+                
+                // Show added to cart message
+                alert('Added to cart!');
+            });
+
+            // Quantity controls
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value) || 1;
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value) || 1;
+                quantityInput.value = value + 1;
+            });
+
+            // Ensure quantity is at least 1
+            quantityInput.addEventListener('change', () => {
+                let value = parseInt(quantityInput.value) || 1;
+                if (value < 1) value = 1;
+                quantityInput.value = value;
+            });
+        });
+    </script>
+</body>
+</html>

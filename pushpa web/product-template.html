@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCT_NAME - MATIR RUP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../nav-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .product-image-container {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        
+        .product-image {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            color: #8B4513;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        
+        .product-description {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        
+        .add-to-cart-btn {
+            background-color: #2C327B;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #1a2168;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-features {
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .product-features h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .product-features ul {
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+        
+        .product-features li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-image {
+                max-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-screen">
+        <header class="header">
+            <div class="brand">
+                <a href="../index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Shop
+                </a>
+            </div>
+            <div class="header-actions">
+                <div class="search-container">
+                    <button class="search-button" id="searchButton" title="Search products">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="user-actions">
+                    <a href="#" class="account-btn" id="accountBtn" title="My Account">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <a href="#" class="wishlist-btn" id="wishlistBtn" title="Wishlist">
+                        <i class="far fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </a>
+                    <a href="../cart.html" class="cart-btn" id="cartBtn" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="product-detail-container">
+                <div class="product-detail">
+                    <div class="product-image-container">
+                        <img src="PRODUCT_IMAGE" alt="PRODUCT_NAME" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h1 class="product-title">PRODUCT_NAME</h1>
+                        <div class="product-price">$PRODUCT_PRICE</div>
+                        <p class="product-description">
+                            PRODUCT_DESCRIPTION
+                        </p>
+                        
+                        <div class="product-features">
+                            <h3>Product Details</h3>
+                            <ul>
+                                <li>Handcrafted with care using traditional techniques</li>
+                                <li>Made from high-quality, sustainable materials</li>
+                                <li>Unique design that stands out</li>
+                                <li>Perfect for home decoration or gifting</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="add-to-cart-btn" id="addToCartBtn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="navbar">
+            <a href="../index.html" class="nav-item" data-name="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="../products.html" class="nav-item" data-name="products">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Products</span>
+            </a>
+            <a href="#" class="nav-item" data-name="tracking">
+                <i class="fas fa-truck"></i>
+                <span>Tracking</span>
+            </a>
+            <a href="#" class="nav-item" data-name="account">
+                <i class="fas fa-user"></i>
+                <span>Account</span>
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        // Cart functionality
+        class Cart {
+            constructor() {
+                this.cart = [];
+                this.loadCart();
+                this.updateCartCount();
+                this.setupEventListeners();
+            }
+
+            loadCart() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    this.cart = JSON.parse(savedCart);
+                    this.updateCartCount();
+                }
+            }
+
+            saveCart() {
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+                this.updateCartCount();
+            }
+
+            addItem(productId, productName, price, quantity = 1, image = '') {
+                const existingItem = this.cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    this.cart.push({
+                        id: productId,
+                        name: productName,
+                        price: price,
+                        quantity: quantity,
+                        image: image
+                    });
+                }
+                
+                this.saveCart();
+                this.showNotification(`${productName} added to cart`);
+            }
+
+            updateCartCount() {
+                const count = this.cart.reduce((total, item) => total + item.quantity, 0);
+                document.querySelectorAll('.cart-count').forEach(el => {
+                    el.textContent = count;
+                    el.style.display = count > 0 ? 'flex' : 'none';
+                });
+            }
+
+            showNotification(message) {
+                // Create notification element if it doesn't exist
+                let notification = document.querySelector('.cart-notification');
+                
+                if (!notification) {
+                    notification = document.createElement('div');
+                    notification.className = 'cart-notification';
+                    document.body.appendChild(notification);
+                }
+                
+                notification.textContent = message;
+                notification.classList.add('show');
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+
+            setupEventListeners() {
+                // Add to cart button
+                const addToCartBtn = document.getElementById('addToCartBtn');
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener('click', () => {
+                        const productId = 'PRODUCT_ID';
+                        const productName = 'PRODUCT_NAME';
+                        const price = parseFloat('PRODUCT_PRICE'.replace('$', ''));
+                        const image = 'PRODUCT_IMAGE';
+                        
+                        this.addItem(productId, productName, price, 1, image);
+                    });
+                }
+            }
+        }
+
+        // Initialize cart when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = new Cart();
+        });
+    </script>
+</body>
+</html>

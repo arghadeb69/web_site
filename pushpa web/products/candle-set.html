@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handmade Candle Set - MATIR RUP</title>
+    <style>
+        /* Base styles from original (using shorthand where possible) */
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa url('../images/candle set.jpg') no-repeat center/contain;
+            border-radius: 8px;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-title {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .product-price {
+            font-size: 1.8rem;
+            color: #8B4513;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        .product-description {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .add-to-cart-btn {
+            background-color: #2C327B;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-button { /* Moved style here for clarity */
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2C327B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        /* Mobile adjustment */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            .product-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-screen">
+        <header class="header">
+            <div class="brand">
+                <a href="../index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Shop
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="../cart.html" class="cart-btn" id="cartBtn" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="product-detail-container">
+                <div class="product-detail">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <span class="product-category">Candles</span>
+                        <h1 class="product-title">Handmade Scented Candle Set</h1>
+                        <div class="product-price">$29.99</div>
+                        <p class="product-description">
+                            This exquisite set of handmade scented candles brings warmth and tranquility to any space. 
+                            Each candle is carefully crafted with natural soy wax and premium essential oils for a clean, 
+                            long-lasting burn. The set includes three unique fragrances to create the perfect ambiance.
+                        </p>
+                        
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn" id="addToCartBtn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="add-to-wishlist" title="Add to Wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="navbar">
+            <a href="../index.html" class="nav-item active" data-name="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="../products.html" class="nav-item" data-name="products">
+                <i class="fas fa-th-large"></i>
+                <span>Products</span>
+            </a>
+            <a href="../cart.html" class="nav-item" data-name="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+                <span class="cart-count">0</span>
+            </a>
+            <a href="../account.html" class="nav-item" data-name="account">
+                <i class="far fa-user"></i>
+                <span>Account</span>
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            const cartCounts = document.querySelectorAll('.cart-count');
+            
+            const updateCartDisplay = (count) => {
+                cartCounts.forEach(counter => {
+                    counter.textContent = count;
+                    counter.style.display = count > 0 ? 'flex' : 'none';
+                });
+            };
+
+            const initialCount = parseInt(localStorage.getItem('cartCount') || '0');
+            updateCartDisplay(initialCount);
+            
+            addToCartBtn.addEventListener('click', () => {
+                let count = initialCount + 1; // Increment current count
+                localStorage.setItem('cartCount', count.toString());
+                updateCartDisplay(count);
+                alert('Added to cart!');
+            });
+        });
+    </script>
+</body>
+</html>

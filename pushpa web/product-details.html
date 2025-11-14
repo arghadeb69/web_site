@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - MATIR RUP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 400px;
+            background-color: #f8f9fa;
+        }
+        
+        .product-info {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            color: #8B4513;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        
+        .product-description {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+        
+        .product-features {
+            margin: 1.5rem 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .product-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            color: #555;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+        
+        .product-category {
+            background: #f0e6d9;
+            color: #8B4513;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .product-rating {
+            color: #ffb300;
+            font-size: 0.9rem;
+        }
+        
+        .rating-count {
+            color: #666;
+            margin-left: 5px;
+        }
+        
+        .product-features-section {
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .product-features-section h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .product-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .product-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            color: #555;
+            margin-bottom: 0.3rem;
+        }
+        
+        .product-features li i {
+            color: #8B4513;
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-specs {
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .product-specs h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .spec-value {
+            color: #333;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            align-items: center;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        
+        .qty-btn {
+            background: #f5f5f5;
+            border: none;
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+        
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            height: 36px;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .product-shipping {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f0f7ed;
+            border-radius: 8px;
+            border-left: 3px solid #4caf50;
+        }
+        
+        .shipping-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+        
+        .shipping-info i {
+            margin-right: 8px;
+        }
+        
+        .btn-add-to-cart {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: auto;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .btn-add-to-cart:hover {
+            background-color: #6d360a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+        
+        .back-button:hover {
+            color: #6d360a;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-image {
+                min-height: 300px;
+            }
+            
+            .product-info {
+                padding: 1.5rem;
+            }
+            
+            .product-title {
+                font-size: 1.6rem;
+            }
+            
+            .btn-add-to-cart {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-screen">
+        <header class="header">
+            <div class="brand">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Shop
+                </a>
+            </div>
+        </header>
+        
+        <main class="content">
+            <div class="product-detail-container">
+                <div class="product-detail">
+                    <div class="product-image" id="productImage"></div>
+                    <div class="product-info">
+                        <h1 class="product-title" id="productTitle">Product Name</h1>
+                        <div class="product-price" id="productPrice">$0.00</div>
+                        <div class="product-meta">
+                            <span class="product-category" id="productCategory">Handicrafts</span>
+                            <span class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="rating-count">(24)</span>
+                            </span>
+                        </div>
+                        
+                        <div class="product-description" id="productDescription">
+                            <p>Loading product details...</p>
+                        </div>
+                        
+                        <div class="product-features-section">
+                            <h3>Key Features</h3>
+                            <ul class="product-features" id="productFeatures">
+                                <li><i class="fas fa-check"></i> 100% Handmade</li>
+                                <li><i class="fas fa-check"></i> Eco-friendly materials</li>
+                                <li><i class="fas fa-check"></i> Made with traditional techniques</li>
+                                <li><i class="fas fa-check"></i> Unique piece</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="product-specs" id="productSpecs">
+                            <h3>Specifications</h3>
+                            <div class="specs-grid">
+                                <div class="spec-item">
+                                    <span class="spec-label">Material:</span>
+                                    <span class="spec-value" id="specMaterial">-</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Dimensions:</span>
+                                    <span class="spec-value" id="specDimensions">-</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Weight:</span>
+                                    <span class="spec-value" id="specWeight">-</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Color:</span>
+                                    <span class="spec-value" id="specColor">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <div class="quantity-selector">
+                                <button class="qty-btn minus">-</button>
+                                <input type="number" value="1" min="1" class="qty-input" title="Quantity" aria-label="Product quantity">
+                                <button class="qty-btn plus">+</button>
+                            </div>
+                            <button class="btn-add-to-cart">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart - <span id="productTotalPrice">₹0</span>
+                            </button>
+                        </div>
+                        
+                        <div class="product-shipping">
+                            <div class="shipping-info">
+                                <i class="fas fa-truck"></i>
+                                <span>Free shipping on orders over ₹999</span>
+                            </div>
+                            <div class="shipping-info">
+                                <i class="fas fa-undo"></i>
+                                <span>7-day easy returns</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="navbar">
+            <a href="index.html" class="nav-item" data-name="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-name="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+            </a>
+            <a href="#" class="nav-item" data-name="account">
+                <i class="fas fa-user"></i>
+                <span>Account</span>
+            </a>
+        </footer>
+    </div>
+
+        <script>
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            // Product database
+            const products = {
+                'handmade-candle': {
+                    title: 'Handmade Scented Candle',
+                    price: 499,
+                    category: 'Home Decor',
+                    description: 'Elegant handmade scented candles in beautiful clay pots. Each candle is carefully crafted with natural soy wax and premium essential oils for a long-lasting, soothing fragrance. Perfect for creating a warm and inviting atmosphere in any room.',
+                    features: [
+                        '100% natural soy wax',
+                        'Premium essential oil blend',
+                        'Approx. 40 hours burn time',
+                        'Hand-poured in small batches',
+                        'Eco-friendly packaging'
+                    ],
+                    specs: {
+                        'Material': 'Soy wax, essential oils, cotton wick',
+                        'Dimensions': '7cm x 7cm x 8cm',
+                        'Weight': '300g',
+                        'Fragrance': 'Lavender & Vanilla',
+                        'Color': 'Natural with terracotta pot',
+                        'Burn Time': '40+ hours'
+                    },
+                    image: 'images/IMG-20251113-WA0014.jpg',
+                    rating: 4
+                },
+                'lippan-art': {
+                    title: 'Lippan Art Wall Hanging',
+                    price: 2499,
+                    category: 'Wall Decor',
+                    description: 'Exquisite Lippan Kaam wall hanging, handcrafted by skilled artisans from Kutch, Gujarat. Made with natural clay and mirror work, this piece brings traditional Indian folk art to your home decor. Each piece is unique and tells a story of the rich cultural heritage of Gujarat.',
+                    image: 'images/IMG-20251113-WA0009.jpg',
+                    features: [
+                        'Handmade with natural clay and camel dung',
+                        'Authentic Kutch mirror work',
+                        'Diameter: 12 inches',
+                        'Comes with jute rope for hanging',
+                        'Eco-friendly and sustainable',
+                        'Handcrafted by local artisans',
+                        'Perfect for living room or bedroom decor'
+                    ],
+                    specs: {
+                        material: 'Clay, Camel Dung, Mirror',
+                        dimensions: '12" Diameter',
+                        weight: '800g',
+                        color: 'Natural Terracotta with Mirrors'
+                    }
+                },
+                'nakshikata': {
+                    title: 'Wooden Nakshikata Art',
+                    price: 3499,
+                    category: 'Wood Carving',
+                    description: 'Intricate Nakshikata wood carving showcasing traditional Indian patterns. Each piece is carefully hand-carved from Sheesham wood and finished with natural oils. This art form has been passed down through generations of artisans, preserving the rich cultural heritage of Indian woodwork.',
+                    image: 'images/IMG-20251113-WA0010.jpg',
+                    features: [
+                        'Made from premium Sheesham wood',
+                        'Hand-carved by master artisans',
+                        'Dimensions: 18" x 12"',
+                        'Natural wood finish',
+                        'Comes with wall mounting kit',
+                        'Each piece is unique',
+                        'Eco-friendly and sustainable'
+                    ],
+                    specs: {
+                        material: 'Sheesham Wood',
+                        dimensions: '18" x 12" x 1.5"',
+                        weight: '1.2kg',
+                        color: 'Natural Wood'
+                    }
+                },
+                'terakuta': {
+                    title: 'Terracotta Handicraft Set',
+                    price: 1799,
+                    category: 'Home Decor',
+                    description: 'Set of 3 terracotta home decor pieces, each handcrafted from natural clay. These eco-friendly items are perfect for adding a rustic touch to your living space. The set includes one large and two small pots, each featuring traditional designs and made using age-old pottery techniques.',
+                    image: 'images/IMG-20251113-WA0011.jpg',
+                    features: [
+                        'Set includes: 1 large pot, 2 small pots',
+                        'Made from natural terracotta clay',
+                        'Hand-painted with natural dyes',
+                        'Food-safe and microwave friendly',
+                        'Dimensions: 8"H x 6"D (largest piece)',
+                        'Perfect for plants or kitchen storage',
+                        'Handmade by skilled potters'
+                    ],
+                    specs: {
+                        material: 'Terracotta Clay',
+                        dimensions: '8"H x 6"D (Largest)',
+                        weight: '1.5kg (Total)',
+                        color: 'Terracotta with Hand-Painted Designs'
+                    }
+                },
+                'wallmate': {
+                    title: 'Buddha Wall Decor',
+                    price: 2999,
+                    category: 'Spiritual Decor',
+                    description: 'Elegant Buddha wall hanging made from high-quality resin with antique gold finish. This spiritual decor piece adds peace and serenity to any room. The intricate details capture the tranquility of Buddha, making it a perfect addition to your meditation space or living area.',
+                    image: 'images/IMG-20251113-WA0012.jpg',
+                    features: [
+                        'Made from durable resin material',
+                        'Antique gold finish',
+                        'Dimensions: 14" x 10"',
+                        'Lightweight and easy to hang',
+                        'Includes hanging hardware',
+                        'Weather-resistant finish',
+                        'Perfect for indoor use'
+                    ],
+                    specs: {
+                        material: 'High-Quality Resin',
+                        dimensions: '14" x 10" x 1.5"',
+                        weight: '800g',
+                        color: 'Antique Gold'
+                    }
+                },
+                'kalamkari': {
+                    title: 'Kalamkari Wall Hanging',
+                    price: 3299,
+                    category: 'Textile Art',
+                    description: 'Authentic Kalamkari textile art, hand-painted on pure cotton fabric. This traditional Indian art form uses natural dyes and depicts mythological themes. Each piece is a masterpiece created by skilled artisans using techniques passed down through generations, making it a true collector\'s item.',
+                    image: 'images/IMG-20251113-WA0013.jpg',
+                    features: [
+                        '100% hand-painted cotton fabric',
+                        'Natural vegetable dyes',
+                        'Dimensions: 24" x 36"',
+                        'Comes with wooden hanging rod',
+                        'Ready to hang',
+                        'Hand-wash recommended',
+                        'Made by traditional artisans'
+                    ],
+                    specs: {
+                        material: '100% Cotton Fabric',
+                        dimensions: '24" x 36"',
+                        weight: '500g',
+                        color: 'Natural Dyes (Multi-color)'
+                    }
+                },
+                'candle': {
+                    title: 'Scented Soy Wax Candles (Set of 3)',
+                    price: 1199,
+                    category: 'Home Fragrance',
+                    description: 'Hand-poured soy wax candles with essential oil blends. Set includes three unique fragrances in elegant terracotta containers. Each candle is made with 100% natural soy wax, premium fragrance oils, and a cotton wick for a clean, even burn. The set includes: Lavender Vanilla, Sandalwood Rose, and Citrus Spice.',
+                    image: 'images/IMG-20251113-WA0014.jpg',
+                    features: [
+                        'Set of 3 (200g each)',
+                        '100% natural soy wax',
+                        'Premium essential oil blends',
+                        'Burn time: 40+ hours each',
+                        'Eco-friendly packaging',
+                        'Phthalate-free fragrances',
+                        'Hand-poured with care'
+                    ],
+                    specs: {
+                        material: 'Soy Wax, Essential Oils',
+                        dimensions: 'Each 3"D x 3.5"H',
+                        weight: '200g per candle',
+                        color: 'Natural Wax with Terracotta Container'
+                    }
+                    'Authentic Kutch mirror work',
+                    'Diameter: 12 inches',
+                    'Comes with jute rope for hanging',
+                    'Eco-friendly and sustainable',
+                    'Handcrafted by local artisans',
+                    'Perfect for living room or bedroom decor'
+                ],
+                specs: {
+                    'Material': 'Clay, Camel Dung, Mirror',
+                    'Dimensions': '12" Diameter',
+                    weight: '800g',
+                    color: 'Natural Terracotta with Mirrors'
+                }
+            },
+            'nakshikata': {
+                title: 'Wooden Nakshikata Art',
+                price: '₹3,499',
+                category: 'Wood Carving',
+                description: 'Intricate Nakshikata wood carving showcasing traditional Indian patterns. Each piece is carefully hand-carved from Sheesham wood and finished with natural oils. This art form has been passed down through generations of artisans, preserving the rich cultural heritage of Indian woodwork.',
+                image: 'images/IMG-20251113-WA0010.jpg',
+                features: [
+                    'Made from premium Sheesham wood',
+                    'Hand-carved by master artisans',
+                    'Dimensions: 18" x 12"',
+                    'Natural wood finish',
+                    'Comes with wall mounting kit',
+                    'Each piece is unique',
+                    'Eco-friendly and sustainable'
+                ],
+                specs: {
+                    material: 'Sheesham Wood',
+                    dimensions: '18" x 12" x 1.5"',
+                    weight: '1.2kg',
+                    color: 'Natural Wood'
+                }
+            },
+            'terakuta': {
+                title: 'Terracotta Handicraft Set',
+                price: '₹1,799',
+                category: 'Home Decor',
+                description: 'Set of 3 terracotta home decor pieces, each handcrafted from natural clay. These eco-friendly items are perfect for adding a rustic touch to your living space. The set includes one large and two small pots, each featuring traditional designs and made using age-old pottery techniques.',
+                image: 'images/IMG-20251113-WA0011.jpg',
+                features: [
+                    'Set includes: 1 large pot, 2 small pots',
+                    'Made from natural terracotta clay',
+                    'Hand-painted with natural dyes',
+                    'Food-safe and microwave friendly',
+                    'Dimensions: 8"H x 6"D (largest piece)',
+                    'Perfect for plants or kitchen storage',
+                    'Handmade by skilled potters'
+                ],
+                specs: {
+                    material: 'Terracotta Clay',
+                    dimensions: '8"H x 6"D (Largest)',
+                    weight: '1.5kg (Total)',
+                    color: 'Terracotta with Hand-Painted Designs'
+                }
+            },
+            'wallmate': {
+                title: 'Buddha Wall Decor',
+                price: '₹2,999',
+                category: 'Spiritual Decor',
+                description: 'Elegant Buddha wall hanging made from high-quality resin with antique gold finish. This spiritual decor piece adds peace and serenity to any room. The intricate details capture the tranquility of Buddha, making it a perfect addition to your meditation space or living area.',
+                image: 'images/IMG-20251113-WA0012.jpg',
+                features: [
+                    'Made from durable resin material',
+                    'Antique gold finish',
+                    'Dimensions: 14" x 10"',
+                    'Lightweight and easy to hang',
+                    'Includes hanging hardware',
+                    'Weather-resistant finish',
+                    'Perfect for indoor use'
+                ],
+                specs: {
+                    material: 'High-Quality Resin',
+                    dimensions: '14" x 10" x 1.5"',
+                    weight: '800g',
+                    color: 'Antique Gold'
+                }
+            },
+            'kalamkari': {
+                title: 'Kalamkari Wall Hanging',
+                price: '₹3,299',
+                category: 'Textile Art',
+                description: 'Authentic Kalamkari textile art, hand-painted on pure cotton fabric. This traditional Indian art form uses natural dyes and depicts mythological themes. Each piece is a masterpiece created by skilled artisans using techniques passed down through generations, making it a true collector\'s item.',
+                image: 'images/IMG-20251113-WA0013.jpg',
+                features: [
+                    '100% hand-painted cotton fabric',
+                    'Natural vegetable dyes',
+                    'Dimensions: 24" x 36"',
+                    'Comes with wooden hanging rod',
+                    'Ready to hang',
+                    'Hand-wash recommended',
+                    'Made by traditional artisans'
+                ],
+                specs: {
+                    material: '100% Cotton Fabric',
+                    dimensions: '24" x 36"',
+                    weight: '500g',
+                    color: 'Natural Dyes (Multi-color)'
+                }
+            },
+            'candle': {
+                title: 'Scented Soy Wax Candles (Set of 3)',
+                price: '₹1,199',
+                category: 'Home Fragrance',
+                description: 'Hand-poured soy wax candles with essential oil blends. Set includes three unique fragrances in elegant terracotta containers. Each candle is made with 100% natural soy wax, premium fragrance oils, and a cotton wick for a clean, even burn. The set includes: Lavender Vanilla, Sandalwood Rose, and Citrus Spice.',
+                image: 'images/IMG-20251113-WA0014.jpg',
+                features: [
+                    'Set of 3 (200g each)',
+                    '100% natural soy wax',
+                    'Premium essential oil blends',
+                    'Burn time: 40+ hours each',
+                    'Eco-friendly packaging',
+                    'Phthalate-free fragrances',
+                    'Hand-poured with care'
+                ],
+                specs: {
+                    material: 'Soy Wax, Essential Oils',
+                    dimensions: 'Each 3"D x 3.5"H',
+                    weight: '200g per candle',
+                    color: 'Natural Wax with Terracotta Container'
+                }
+            }
+        };
+        
+        // Helper function to safely set element text
+        function setElementText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = text;
+        }
+
+        // Update page with product details
+        function loadProductDetails() {
+            // Debug: Check if productId is defined
+            console.log('Product ID from URL:', productId);
+            
+            // Get product or show error
+            const product = products[productId];
+            if (!product) {
+                console.error('Product not found for ID:', productId);
+                const container = document.querySelector('.product-detail-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #dc3545;"></i>
+                            <h2>Product Not Found</h2>
+                            <p>Sorry, the requested product could not be found.</p>
+                            <a href="index.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1.5rem; background: #8B4513; color: white; text-decoration: none; border-radius: 4px;">
+                                Back to Shop
+                            </a>
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
+            console.log('Loading product:', product);
+            
+            // Update page content
+            document.title = `${product.title} - MATIR RUP`;
+            
+            // Set basic product info
+            setElementText('productTitle', product.title);
+            
+            // Format price (handle both number and string prices)
+            const formattedPrice = typeof product.price === 'number' 
+                ? '₹' + product.price.toLocaleString('en-IN')
+                : product.price.startsWith('₹') ? product.price : '₹' + product.price;
+                
+            setElementText('productPrice', formattedPrice);
+            setElementText('productTotalPrice', formattedPrice);
+            
+            // Set description
+            const descElement = document.getElementById('productDescription');
+            if (descElement) descElement.innerHTML = `<p>${product.description}</p>`;
+            
+            // Update category if available
+            if (product.category) {
+                setElementText('productCategory', product.category);
+            }
+            
+            // Update image
+            const productImage = document.getElementById('productImage');
+            if (productImage) {
+                // Check both image and images properties
+                const imageUrl = product.image || 
+                               (product.images && product.images.length > 0 ? product.images[0] : '');
+                
+                if (imageUrl) {
+                    productImage.style.backgroundImage = `url('${imageUrl}')`;
+                    productImage.style.backgroundSize = 'contain';
+                    productImage.style.backgroundPosition = 'center';
+                    productImage.style.backgroundRepeat = 'no-repeat';
+                    console.log('Setting image URL:', imageUrl);
+                } else {
+                    productImage.style.backgroundColor = '#f8f9fa';
+                    productImage.innerHTML = '<i class="fas fa-image" style="font-size: 48px; color: #ccc;"></i>';
+                    console.warn('No image found for product');
+                }
+            }
+            
+            // Update features list
+            const featuresList = document.getElementById('productFeatures');
+            featuresList.innerHTML = ''; // Clear existing features
+            
+            if (product.features && product.features.length > 0) {
+                product.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                    featuresList.appendChild(li);
+                });
+            }
+            
+            // Update specifications
+            if (product.specs) {
+                if (product.specs.material) {
+                    document.getElementById('specMaterial').textContent = product.specs.material;
+                }
+                if (product.specs.dimensions) {
+                    document.getElementById('specDimensions').textContent = product.specs.dimensions;
+                }
+                if (product.specs.weight) {
+                    document.getElementById('specWeight').textContent = product.specs.weight;
+                }
+                if (product.specs.color) {
+                    document.getElementById('specColor').textContent = product.specs.color;
+                }
+            }
+            
+            // Quantity selector functionality
+            const qtyInput = document.querySelector('.qty-input');
+            const minusBtn = document.querySelector('.qty-btn.minus');
+            const plusBtn = document.querySelector('.qty-btn.plus');
+            const price = parseFloat(product.price.replace(/[^0-9.]/g, ''));
+            
+            function updateTotal() {
+                const quantity = parseInt(qtyInput.value) || 1;
+                const total = (price * quantity).toLocaleString('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    maximumFractionDigits: 0
+                });
+                document.getElementById('productTotalPrice').textContent = total;
+            }
+            
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(qtyInput.value) || 1;
+                if (value > 1) {
+                    qtyInput.value = value - 1;
+                    updateTotal();
+                }
+            });
+            
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(qtyInput.value) || 1;
+                qtyInput.value = value + 1;
+                updateTotal();
+            });
+            
+            qtyInput.addEventListener('change', updateTotal);
+            
+            // Initialize total price
+            updateTotal();
+            
+            // Add to cart functionality
+            const addToCartBtn = document.querySelector('.btn-add-to-cart');
+            addToCartBtn.addEventListener('click', () => {
+                // In a real app, you would add the product to a shopping cart
+                alert(`${product.title} has been added to your cart!`);
+            });
+        }
+        
+        // Load product details when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetails();
+            
+            // Initialize cart
+            if (typeof cart !== 'undefined') {
+                // Update cart count
+                cart.updateCartCount();
+                
+                // Handle add to cart button
+                const addToCartBtn = document.getElementById('addToCartBtn');
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const product = products[productId];
+                        if (product) {
+                            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+                            cart.addItem(
+                                productId,
+                                product.title,
+                                product.price,
+                                quantity,
+                                `url('${product.images[0]}')`
+                            );
+                            
+                            // Show success message
+                            const notification = document.createElement('div');
+                            notification.className = 'notification';
+                            notification.textContent = `${product.title} added to cart`;
+                            document.body.appendChild(notification);
+                            
+                            // Remove notification after 3 seconds
+                            setTimeout(() => {
+                                notification.remove();
+                            }, 3000);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

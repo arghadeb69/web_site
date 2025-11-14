@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - MATIR RUP</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2C327B;
+            --secondary-color: #8B5CF6;
+            --accent-color: #F59E0B;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 120px;
+            padding: 0 20px;
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .cart-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .cart-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .cart-items:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            transition: var(--transition);
+            margin-bottom: 15px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--primary-color);
+        }
+
+        .cart-item:last-child {
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-image {
+            width: 120px;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-right: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .item-image:hover {
+            transform: scale(1.02);
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h3 {
+            margin: 0 0 8px 0;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+        }
+
+        .quantity-btn {
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(44, 50, 123, 0.1);
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .remove-item:hover {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .remove-item i {
+            font-size: 1.1rem;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 100px;
+            transition: var(--transition);
+        }
+
+        .cart-summary:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .summary-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            font-weight: 700;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.05rem;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(44, 50, 123, 0.2);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 50, 123, 0.3);
+        }
+
+        .checkout-btn:active {
+            transform: translateY(0);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h2 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .empty-cart p {
+            color: #64748b;
+            margin-bottom: 25px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .continue-shopping {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .continue-shopping:hover {
+            background: #1a2168;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-summary {
+                position: static;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 15px;
+            }
+
+            .item-image {
+                margin: 0 0 20px 0;
+                width: 150px;
+                height: 150px;
+            }
+
+            .quantity-controls {
+                justify-content: center;
+                margin: 15px 0;
+            }
+
+            .item-actions {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .container {
+                margin: 60px auto 100px;
+            }
+
+            .cart-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cart-item {
+                padding: 20px 10px;
+            }
+
+            .item-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .quantity-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .quantity-input {
+                width: 40px;
+                padding: 4px;
+            }
+
+            .checkout-btn {
+                padding: 14px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (same as index.html) -->
+    <header class="header">
+        <div class="brand">
+            <img src="images/Screenshot 2025-11-13 015207.png" alt="MATIR RUP Logo" class="brand-logo">
+            <span class="brand-name">MATIR RUP</span>
+        </div>
+        <div class="header-actions">
+            <div class="search-container">
+                <button class="search-button" id="searchButton" title="Search products">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="user-actions">
+                <a href="#" class="account-btn" id="accountBtn" title="My Account">
+                    <i class="far fa-user"></i>
+                    <span class="account-text">Account</span>
+                </a>
+                <a href="#" class="wishlist-btn" id="wishlistBtn" title="Wishlist">
+                    <i class="far fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <a href="cart.html" class="cart-btn active" id="cartBtn" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="cart-header">
+            <h1>Your Shopping Cart</h1>
+            <p>Review and manage your items</p>
+        </div>
+
+        <div class="cart-container">
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically inserted here -->
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven't added anything to your cart yet</p>
+                    <a href="index.html" class="continue-shopping">Continue Shopping</a>
+                </div>
+            </div>
+
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="total">₹0</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="navbar" id="navbar">
+        <a href="index.html" class="nav-item" data-name="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item" data-name="categories">
+            <i class="fas fa-th-large"></i>
+            <span>Categories</span>
+        </a>
+        <a href="#" class="nav-item" data-name="search">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="cart.html" class="nav-item active" data-name="cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart</span>
+            <span class="cart-count">0</span>
+        </a>
+        <a href="#" class="nav-item" data-name="account">
+            <i class="far fa-user"></i>
+            <span>Account</span>
+        </a>
+    </footer>
+
+    <script src="js/cart.js"></script>
+    <script>
+        // Cart page functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = new Cart();
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            const emptyCartElement = document.querySelector('.empty-cart');
+            
+            // Render cart items
+            function renderCart() {
+                if (cart.cart.length === 0) {
+                    cartSummary.style.display = 'none';
+                    emptyCartElement.style.display = 'block';
+                    return;
+                }
+
+                // Show summary and hide empty message
+                cartSummary.style.display = 'block';
+                emptyCartElement.style.display = 'none';
+
+                // Clear current items
+                cartItemsContainer.innerHTML = '';
+
+                // Add each item to the cart
+                cart.cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.dataset.id = item.id;
+                    
+                    // Format price with Indian Rupee symbol
+                    const formattedPrice = new Intl.NumberFormat('en-IN', {
+                        style: 'currency',
+                        currency: 'INR',
+                        maximumFractionDigits: 0
+                    }).format(item.price);
+
+                    const totalPrice = item.price * item.quantity;
+                    const formattedTotal = new Intl.NumberFormat('en-IN', {
+                        style: 'currency',
+                        currency: 'INR',
+                        maximumFractionDigits: 0
+                    }).format(totalPrice);
+
+                    itemElement.innerHTML = `
+                        <div class="item-image" style="background-image: ${item.image}"></div>
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            <div class="item-price">${formattedPrice}</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                            </div>
+                            <button class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                        <div class="item-total">
+                            ${formattedTotal}
+                        </div>
+                    `;
+                    
+                    cartItemsContainer.appendChild(itemElement);
+                });
+
+                // Calculate and update totals
+                updateTotals();
+            }
+
+            // Update subtotal and total
+            function updateTotals() {
+                const subtotal = cart.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Format with Indian Rupee symbol
+                const formattedSubtotal = new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    maximumFractionDigits: 0
+                }).format(subtotal);
+                
+                subtotalElement.textContent = formattedSubtotal;
+                totalElement.textContent = formattedSubtotal; // In a real app, you might add taxes/shipping here
+            }
+
+            // Handle quantity changes
+            cartItemsContainer.addEventListener('click', (e) => {
+                const target = e.target.closest('.quantity-btn, .remove-item');
+                if (!target) return;
+
+                const itemId = target.dataset.id;
+                const item = cart.cart.find(item => item.id === itemId);
+                if (!item) return;
+
+                if (target.classList.contains('increase-quantity')) {
+                    item.quantity += 1;
+                } else if (target.classList.contains('decrease-quantity')) {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        // Remove item if quantity would go below 1
+                        cart.cart = cart.cart.filter(i => i.id !== itemId);
+                    }
+                } else if (target.classList.contains('remove-item')) {
+                    cart.cart = cart.cart.filter(i => i.id !== itemId);
+                }
+
+                // Save and re-render
+                cart.saveCart();
+                renderCart();
+                
+                // Show notification
+                if (target.classList.contains('remove-item')) {
+                    cart.showNotification('Item removed from cart');
+                }
+            });
+
+            // Handle checkout button
+            document.getElementById('checkoutBtn').addEventListener('click', () => {
+                // In a real app, this would redirect to checkout
+                alert('Proceeding to checkout! This is a demo. In a real app, this would take you to the payment page.');
+            });
+
+            // Initial render
+            renderCart();
+        });
+    </script>
+</body>
+</html>

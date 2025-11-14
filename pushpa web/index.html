@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MATIR RUP Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav-styles.css">
+    <link rel="stylesheet" href="css/product-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+        .loding-brand-logo{
+            width: 100px;
+        }
+        
+        /* Cart Button Styles */
+        .add-to-cart-btn {
+            background-color: var(--primary-color, #2C327B);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 0 0 12px 12px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #1a2168;
+        }
+
+        .add-to-cart-btn i {
+            font-size: 0.9em;
+        }
+
+        /* Cart Notification */
+        .cart-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            background-color: #2C327B;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-weight: 500;
+            z-index: 1100;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .cart-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Cart Count Badge */
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-screen" id="splashScreen">
+        
+        <div class="diagonal-container">
+            <div class="color-block block-1"></div> 
+            <div class="color-block block-2"></div>
+            <div class="color-block block-3"></div>
+            <div class="color-block block-4"></div>
+        </div>
+
+        <div class="logo-area">
+            <img src="images/matir rup logo png.png" alt="MATIR RUP Logo" class="loding-brand-logo" width="200px">
+            <p>MATIR RUP</p>
+            </div>
+    </div>
+
+    <div class="app-screen hidden" id="mainScreen">
+        <header class="header">
+            <div class="brand">
+                <img src="images/matir rup logo png.png" alt="MATIR RUP Logo" class="brand-logo">
+                <span class="brand-name">MATIR RUP</span>
+            </div>
+            <div class="header-actions">
+                <div class="search-container">
+                    <button class="search-button" id="searchButton" title="Search products">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+                    <div class="search-box hidden" id="searchBox">
+                        <div class="search-input-container">
+                            <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                            <button class="close-search" title="Close search">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="search-suggestions hidden" id="searchSuggestions">
+                            <div class="suggestion">Lippan Art</div>
+                            <div class="suggestion">Nakshikata</div>
+                            <div class="suggestion">Terakuta</div>
+                            <div class="suggestion">Wallmate</div>
+                            <div class="suggestion">Kalamkari</div>
+                            <div class="suggestion">Candle</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="user-actions">
+                    <a href="#" class="account-btn" id="accountBtn" title="My Account">
+                        <i class="far fa-user"></i>
+                        <span class="account-text">Account</span>
+                    </a>
+                    <a href="#" class="wishlist-btn" id="wishlistBtn" title="Wishlist">
+                        <i class="far fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </a>
+                    <a href="cart.html" class="cart-btn" id="cartBtn" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main class="content">
+            <!-- Auto-scrolling Product Carousel -->
+            <section class="product-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <a href="./products/terracotta-tree-tub.html" class="carousel-slide">
+                            <img src="./images/terracotta.jpg" alt="Terracotta Tree Tub">
+                            <h3>Terracotta</h3>
+                        </a>
+                        <a href="./products/lippan-art.html" class="carousel-slide">
+                            <img src="./images/lippan art.jpg" alt="Lippan Art">
+                            <h3>Lippan Art</h3>
+                        </a>
+                        <a href="./products/nokshilatha.html" class="carousel-slide">
+                            <img src="./images/Nokshilatha.jpg" alt="Nokshilatha">
+                            <h3>Nokshilatha</h3>
+                        </a>
+                        <a href="products/candle-set.html" class="carousel-slide">
+                            <img src="./images/candle set.jpg" alt="Candle Set">
+                            <h3>Candle Set</h3>
+                        </a>
+                        <a href="./products/kalamkari-painting.html" class="carousel-slide">
+                            <img src="./images/kalamkari painting.jpg" alt="Kalamkari Painting">
+                            <h3>Kalamkari Painting</h3>
+                        </a>
+                        <!-- <div class="carousel-slide">
+                            <img src="images/candle.jpg" alt="Candle">
+                            <h3>Handmade Candles</h3>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-products">
+                <h2>Our Handcrafted Collection</h2>
+                <div class="products-grid">
+                    <!-- Lippan Art -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=lippan-art" class="product-link">
+                            <div class="product-img" style="background-image: url('images/Terracotta\ tree\ tub.jpg')"></div>
+                            <div class="product-details">
+                                <h3>Terracotta tree tub</h3>
+                                <p>handmade colour home decor</p>
+                                <span class="price">$23.5</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="lippan-art" data-product-name="Lippan Art" data-price="2499" data-image="images/Terracotta\ tree\ tub.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Nakshikata -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=nakshikata" class="product-link">
+                            <div class="product-img" style="background-image: url('images/kalamkari\ painting.jpg')"></div>
+                            <div class="product-details">
+                                <h3>kalamkari painting</h3>
+                                <p>yellow peacock painting</p>
+                                <span class="price">$31.7</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="nakshikata" data-product-name="Nakshikata" data-price="3499" data-image="images/kalamkari\ painting.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Terakuta -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=terakuta" class="product-link">
+                            <div class="product-img" style="background-image: url('images/candle\ set.jpg')"></div>
+                            <div class="product-details">
+                                <h3>Candle set</h3>
+                                <p>handmade black theme candle</p>
+                                <span class="price">$6.2</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="terakuta" data-product-name="Terakuta" data-price="1799" data-image="images/candle\ set.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Wallmate -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=wallmate" class="product-link">
+                            <div class="product-img" style="background-image: url('images/Pattacitra\ painting.jpg')"></div>
+                            <div class="product-details">
+                                <h3>pattacitra painting</h3>
+                                <p>colourful radha krishna lela</p>
+                                <span class="price">$37.9</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="wallmate" data-product-name="Wallmate" data-price="2999" data-image="images/pattacitra\ painting.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Kalamkari -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=kalamkari" class="product-link">
+                            <div class="product-img" style="background-image: url('images/lippan\ art2.jpg')"></div>
+                            <div class="product-details">
+                                <h3>lippan-art</h3>
+                                <p>3 piece lippan art set</p>
+                                <span class="price">$24.6</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="kalamkari" data-product-name="Kalamkari" data-price="3299" data-image="images/lippan\ art2.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Handmade Candle -->
+                    <div class="product-card">
+                        <a href="product-details.html?id=handmade-candle" class="product-link">
+                            <div class="product-img" style="background-image: url('images/Nokshilatha.jpg')"></div>
+                            <div class="product-details">
+                                <h3>Nokshilatha</h3>
+                                <p>beautiful hand embroidery</p>
+                                <span class="price">$78.8</span>
+                            </div>
+                        </a>
+                        <button class="add-to-cart-btn" data-product-id="handmade-candle" data-product-name="Handmade Candle" data-price="499" data-image="images/Nokshilatha.jpg">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                </div>
+                <div class="view-all">
+                    <a href="products.html" class="btn">View All Products</a>
+                </div>
+            </section>
+        </main>
+        <footer class="navbar" id="navbar">
+            <a href="index.html" class="nav-item active" data-name="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="products.html" class="nav-item" data-name="products">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Products</span>
+            </a>
+            <a href="#" class="nav-item" data-name="tracking">
+                <i class="fas fa-truck"></i>
+                <span>Tracking</span>
+            </a>
+            <a href="#" class="nav-item" data-name="account">
+                <i class="fas fa-user"></i>
+                <span>Account</span>
+            </a>
+        </footer>
+
+    </div>
+
+    <div class="list-view" id="listView">
+        </div>
+
+    <!-- Account Modal -->
+    <div class="account-modal hidden" id="accountModal">
+        <div class="account-modal-content">
+            <button class="close-account-modal">&times;</button>
+            <div class="account-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <form id="loginForm" class="account-form">
+                <h3>Welcome Back</h3>
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-footer">Don't have an account? <a href="#" class="switch-tab" data-tab="signup">Sign up</a></p>
+            </form>
+            
+            <form id="signupForm" class="account-form hidden">
+                <h3>Create Account</h3>
+                <div class="form-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <p class="form-footer">Already have an account? <a href="#" class="switch-tab" data-tab="login">Login</a></p>
+            </form>
+            
+            <div id="accountPanel" class="hidden">
+                <div class="account-header">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3 class="user-name">John Doe</h3>
+                    <p class="user-email">john@example.com</p>
+                </div>
+                <nav class="account-nav">
+                    <a href="#" class="account-nav-item" data-section="orders">
+                        <i class="fas fa-box"></i> My Orders
+                    </a>
+                    <a href="#" class="account-nav-item" data-section="wishlist">
+                        <i class="far fa-heart"></i> Wishlist
+                        <span class="wishlist-count">0</span>
+                    </a>
+                    <a href="#" class="account-nav-item" data-section="addresses">
+                        <i class="fas fa-map-marker-alt"></i> Saved Addresses
+                    </a>
+                    <a href="#" class="account-nav-item" data-section="profile">
+                        <i class="fas fa-user-edit"></i> Edit Profile
+                    </a>
+                    <a href="#" class="account-nav-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar hidden" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <a href="products.html" class="btn">Continue Shopping</a>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount">₹0</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+    
+    <script src="js/cart.js"></script>
+    <script src="script.js"></script>
+    <script src="account-cart.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Initialize cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart class definition
+            class Cart {
+                constructor() {
+                    this.cart = [];
+                    this.cartCount = 0;
+                    this.loadCart();
+                    this.setupEventListeners();
+                }
+
+                loadCart() {
+                    const savedCart = localStorage.getItem('matirRupCart');
+                    if (savedCart) {
+                        this.cart = JSON.parse(savedCart);
+                        this.updateCartCount();
+                    }
+                }
+
+                saveCart() {
+                    localStorage.setItem('matirRupCart', JSON.stringify(this.cart));
+                    this.updateCartCount();
+                }
+
+                addItem(productId, productName, price, quantity = 1, image = '') {
+                    const existingItem = this.cart.find(item => item.id === productId);
+                    
+                    if (existingItem) {
+                        existingItem.quantity += quantity;
+                    } else {
+                        this.cart.push({
+                            id: productId,
+                            name: productName,
+                            price: price,
+                            quantity: quantity,
+                            image: image
+                        });
+                    }
+                    
+                    this.saveCart();
+                    this.showNotification(`${productName} added to cart`);
+                }
+
+                updateCartCount() {
+                    this.cartCount = this.cart.reduce((total, item) => total + item.quantity, 0);
+                    const cartCountElements = document.querySelectorAll('.cart-count');
+                    cartCountElements.forEach(el => {
+                        el.textContent = this.cartCount;
+                        el.style.display = this.cartCount > 0 ? 'flex' : 'none';
+                    });
+                }
+
+                showNotification(message) {
+                    const notification = document.createElement('div');
+                    notification.className = 'cart-notification';
+                    notification.textContent = message;
+                    document.body.appendChild(notification);
+
+                    // Trigger reflow
+                    notification.offsetHeight;
+                    
+                    // Add show class
+                    notification.classList.add('show');
+
+                    // Remove notification after animation
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 300);
+                    }, 3000);
+                }
+
+                setupEventListeners() {
+                    // Add to cart button click handler
+                    document.addEventListener('click', (e) => {
+                        const addToCartBtn = e.target.closest('.add-to-cart-btn');
+                        if (!addToCartBtn) return;
+
+                        const productCard = addToCartBtn.closest('.product-card');
+                        if (!productCard) return;
+
+                        const productLink = productCard.querySelector('.product-link');
+                        const productId = productLink ? new URL(productLink.href, window.location.href).searchParams.get('id') : '';
+                        const productName = productCard.querySelector('h3')?.textContent || 'Product';
+                        const priceText = productCard.querySelector('.price')?.textContent || '0';
+                        const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ''));
+                        const image = productCard.querySelector('.product-img')?.style.backgroundImage || '';
+
+                        this.addItem(productId, productName, price, 1, image);
+                    });
+                }
+            }
+
+            // Initialize cart
+            const cart = new Cart();
+        });
+    </script>
+    <script>
+        // Auto-scrolling carousel
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const slides = Array.from(track.children);
+            
+            // Clone slides for infinite loop
+            const slidesClone = slides.map(slide => {
+                const clone = slide.cloneNode(true);
+                track.appendChild(clone);
+                return clone;
+            });
+            
+            // Calculate total width
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            const totalWidth = slideWidth * slides.length;
+            
+            // Set initial position
+            let position = 0;
+            const speed = 1; // pixels per frame
+            
+            function animate() {
+                position -= speed;
+                
+                // Reset position when reaching the end
+                if (position <= -totalWidth) {
+                    position = 0;
+                }
+                
+                track.style.transform = `translateX(${position}px)`;
+                requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            requestAnimationFrame(animate);
+            
+            // Pause on hover
+            const carousel = document.querySelector('.carousel-container');
+            let isPaused = false;
+            
+            carousel.addEventListener('mouseenter', () => {
+                isPaused = true;
+                track.style.animationPlayState = 'paused';
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                isPaused = false;
+                track.style.animationPlayState = 'running';
+            });
+        });
+    </script>
+</body>
+</html>
